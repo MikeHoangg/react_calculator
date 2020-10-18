@@ -1,10 +1,12 @@
+const OPERATORS = ['+', '-', '*', '/'];
+
 export function evaluate(arrFormula) {
     const arrPostfix = infix2Postfix(arrFormula);
     return evaluatePostfix(arrPostfix);
 }
 
 export function isNotNumber(input) {
-    return input === '(' || input === ')' || input === '+' || input === '-' || input === '*' || input === '/' || input === '%';
+    return OPERATORS.includes(input) || ['(', ')'].includes(input);
 }
 
 export function isNumber(input) {
@@ -12,12 +14,12 @@ export function isNumber(input) {
 }
 
 export function isOperator(input) {
-    return input === '+' || input === '-' || input === '*' || input === '/' || input === '%';
+    return OPERATORS.includes(input);
 }
 
 export function getPriority(input) {
     if (input === '+' || input === '-') return 1;
-    else if (input === '*' || input === '/' || input === '%') return 2;
+    else if (input === '*' || input === '/') return 2;
     return 0;
 }
 
@@ -47,8 +49,6 @@ export function infix2Postfix(arrFormula) {
             }
 
             stack.push(item);
-        } else {
-            console.log("Something else!!!");
         }
     });
 
@@ -83,16 +83,13 @@ export function evaluatePostfix(arrPostfix) {
                 case '/':
                     result = num2 / num1;
                     break;
-                case '%':
-                    result = num2 % num1;
-                    break;
                 default:
-                    console.log('Something else!!!');
+                    ;
             }
 
             stack.push(result + '');
         } else {
-            console.log("Something else!!!");
+            ;
         }
     });
 

@@ -1,6 +1,5 @@
 import React from 'react';
 import Buttons from './Buttons';
-// import History from './History';
 import Display from './Display';
 import * as Calculator from '../calculator';
 import './App.css';
@@ -11,9 +10,7 @@ export default class App extends React.Component {
 
         this.state = {
             formula: [],
-            history: [],
             input: '0',
-            isShowHistory: false,
             afterCalculation: false
         };
 
@@ -24,9 +21,6 @@ export default class App extends React.Component {
         this.onDecimal = this.onDecimal.bind(this);
         this.onParenthesis = this.onParenthesis.bind(this);
         this.onBackspace = this.onBackspace.bind(this);
-        // this.onHistory = this.onHistory.bind(this);
-        // this.onHistoryItemClicked = this.onHistoryItemClicked.bind(this);
-        // this.onClearHistory = this.onClearHistory.bind(this);
     }
 
     onDigit({target}) {
@@ -177,47 +171,19 @@ export default class App extends React.Component {
         const result = Calculator.evaluate(finalFormula);
 
         if (!Number.isNaN(result)) {
-            const newHistoryItem = {
+            const calculation = {
                 formula: finalFormula,
                 result: result
             };
-
+            // TODO add saving to DB
             this.setState({
                 input: result + "",
                 formula: [],
-                history: [].concat(newHistoryItem, this.state.history),
                 afterCalculation: true
             });
         }
     }
 
-    // onHistory() {
-    //     this.setState({
-    //         isShowHistory: !this.state.isShowHistory
-    //     });
-    // }
-    //
-    // onClearHistory() {
-    //     this.setState({
-    //         history: []
-    //     });
-    // }
-
-    // onHistoryItemClicked({target}) {
-    //     const number = target.getAttribute("value");
-    //     const input = this.state.input;
-    //
-    //     if (Calculator.isNumber(input)) {
-    //         this.setState({
-    //             input: number
-    //         });
-    //     } else {
-    //         this.setState({
-    //             input: number,
-    //             formula: this.state.formula.concat(input)
-    //         });
-    //     }
-    // }
 
     render() {
         return (
@@ -227,8 +193,6 @@ export default class App extends React.Component {
                         formula={this.state.formula}
                         input={this.state.input}
                         onBackspace={this.onBackspace}
-                        onHistory={this.onHistory}
-                        isShowHistory={this.state.isShowHistory}
                     />
 
                     <Buttons
@@ -239,14 +203,6 @@ export default class App extends React.Component {
                         onOperator={this.onOperator}
                         onParenthesis={this.onParenthesis}
                     />
-
-                    {/*<History*/}
-                    {/*    isShowHistory={this.state.isShowHistory}*/}
-                    {/*    history={this.state.history}*/}
-                    {/*    onHistoryItemClicked={this.onHistoryItemClicked}*/}
-                    {/*    onEqual={this.onEqual}*/}
-                    {/*    onClearHistory={this.onClearHistory}*/}
-                    {/*/>*/}
                 </div>
             </div>
         )
