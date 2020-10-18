@@ -10,7 +10,7 @@ app.use(cors());
 
 // API
 const calculations = require('./api/calculations');
-app.use('./api/calculations', calculations);
+app.use('/api/calculations', calculations);
 app.use(express.static(path.join(__dirname, '../build')))
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, '../build'))

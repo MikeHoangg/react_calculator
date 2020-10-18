@@ -184,10 +184,10 @@ export default class App extends React.Component {
 
         if (!Number.isNaN(result)) {
             const calculation = {
-                formula: finalFormula,
+                formula: finalFormula.join(''),
                 result: result
             };
-
+            console.log(calculation)
             this.saveCalculation(calculation)
 
             this.setState({
