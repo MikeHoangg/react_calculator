@@ -167,6 +167,17 @@ export default class App extends React.Component {
         }
     }
 
+    saveCalculation(calculation) {
+        axios
+            .post("/api/calculations", calculation)
+            .then(function () {
+                console.log("Saved calculation");
+            })
+            .catch(function () {
+                console.log("Failed to save calculation");
+            });
+    }
+
     onEqual() {
         const finalFormula = this.state.formula.concat(this.state.input);
         const result = Calculator.evaluate(finalFormula);
@@ -177,14 +188,7 @@ export default class App extends React.Component {
                 result: result
             };
 
-            axios
-                .post("/api/calculations", calculation)
-                .then(function () {
-                    console.log("Saved calculation");
-                })
-                .catch(function () {
-                    console.log("Failed to save calculation");
-                });
+            this.saveCalculation(calculation)
 
             this.setState({
                 input: result + "",
