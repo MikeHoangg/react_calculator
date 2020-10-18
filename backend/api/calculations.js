@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const Calculation = require('../models/Calculation');
+const Calculation = require('../models/calculation');
 
 
 router.get('/', (req, res) => {
