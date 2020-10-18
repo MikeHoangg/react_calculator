@@ -3,6 +3,7 @@ import Buttons from './Buttons';
 import Display from './Display';
 import * as Calculator from '../calculator';
 import './App.css';
+import axios from 'axios';
 
 export default class App extends React.Component {
     constructor(props) {
@@ -175,7 +176,16 @@ export default class App extends React.Component {
                 formula: finalFormula,
                 result: result
             };
-            // TODO add saving to DB
+
+            axios
+                .post("/api/calculations", calculation)
+                .then(function () {
+                    console.log("Saved calculation");
+                })
+                .catch(function () {
+                    console.log("Failed to save calculation");
+                });
+
             this.setState({
                 input: result + "",
                 formula: [],
